@@ -30,12 +30,44 @@ class User:
             file.write("\n")
         print(f"User {self.username} saved to {userdata}")
 
+    def load_from_file(userdata):
+        users = []
+        with open(userdata, 'r') as file:
+            lines = file.readlines()
+            username = None
+            cin = None
+            password = None
+            accounts = []
+            for line in lines:
+                if line.startswith("Username:"):
+                    username = line.split(":")[1].strip()
+                elif line.startswith("CIN:"):
+                    cin = line.split(":")[1].strip()
+                elif line.startswith("Password:"):
+                    password = line.split(":")[1].strip()
+                elif line.startswith("-"):
+                    accounts.append(line.strip())
+                elif line == "\n":
+                    user = User(username, cin, password)
+                    user.accounts = accounts
+                    users.append(user)
+                    username = None
+                    cin = None
+                    password = None
+                    accounts = []
+        return users
 
-if __name__ == "__main__":
 
- user1 = User("kaoutar", "z643206", "password123")
- user1.add_account("1234567890")
- user1.add_account("0987654321")
+# Create a new user
+user1 = User("huda", "123456789", "password123")
+user1.add_account("1234567890")
+user1.add_account("0987654321")
 
 # Save the user to file
- user1.save_to_file("userdata.txt")
+user1.save_to_file("userdata.txt")
+
+# Load users from file
+users = User.load_from_file("userdata.txt")
+for user in users:
+    print(user.username, user.cin, user.password, user.accounts)
+

@@ -12,3 +12,10 @@ Accounts:
 - 1234567890
 - 0987654321
 
+Username: huda
+CIN: 123456789
+Password: password123
+Accounts:
+- 1234567890
+- 0987654321
+
