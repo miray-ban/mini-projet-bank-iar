@@ -1,0 +1,14 @@
+Username: Alice
+CIN: 123456789
+Password: password123
+Accounts:
+- 1234567890
+- 0987654321
+
+Username: kaoutar
+CIN: z643206
+Password: password123
+Accounts:
+- 1234567890
+- 0987654321
+
