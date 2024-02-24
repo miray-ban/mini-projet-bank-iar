@@ -3,6 +3,9 @@ import os
 from client import Client
 from Account import Account
 from bank import Bank
+from Transaction import Transaction
+
+
 def create():
     username = input("Enter your username: ")
     cin = input("Enter your CIN: ")
@@ -46,16 +49,25 @@ def faire_transfert(user):
     amount = float(input("Enter amount to transfer: "))
     user.transfert(rib, amount)
 
-
-
-
-
 def afficher_historique(user):
-    print("his")
-    pass
+    print("Transaction History:")
+    try:
+        with open("transactiondata.txt", "r") as file:
+            for line in file:
+                data = line.strip().split(',')
+                if len(data) == 5 and data[1] == user.username and data[2] == user.cin:
+                    transaction = Transaction(data[0], data[1], data[3], float(data[4]))
+                    transaction.aff_transaction()
+    except FileNotFoundError:
+        print("Transaction data file not found.")
+    except Exception as e:
+        print(f"An error occurred while reading transaction data: {e}")
+
+
+
 
 def afficher_info_client(user):
-    print("his")
+
     pass
 
 def afficher_info_banque():

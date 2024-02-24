@@ -7,6 +7,7 @@ class Client:
         self.cin = cin
         self.password = password
         self.accounts = []
+        self.account_counter = 1
 
     def add_account(self, account_num):
         self.accounts.append(account_num)
@@ -18,7 +19,7 @@ class Client:
         else:
             print("Account not found in user's accounts")
     def aff_client(self):
-        print(f"username:{self.username} cin : {self.cin}")
+        print(f"username:{self.username} cin : {self.cin} account{self.accounts}")
 
     def transfert(self, recipient_rib, amount):
         sender_account = None
@@ -53,9 +54,15 @@ class Client:
                 elif len(data) >= 6 and data[4] == recipient_rib:
                     line = f"{data[0]},{data[1]},{data[2]},{data[3]},{recipient_account.rib},{recipient_account.solde}\n"
                 file.write(line)
-
+        with open("transactiondata.txt", "r") as file:
+            lines = file.readlines()
+            if lines:
+                last_transaction = lines[-1].split(',')[0]
+                self.account_counter = int(last_transaction) + 1
         with open("transactiondata.txt", "a") as file:
-            file.write(f"{self.username},{self.cin},{recipient_account.rib},{amount}\n")
+
+
+            file.write(f"{self.account_counter},{self.username},{self.cin},{recipient_account.rib},{amount}\n")
 
         print(f"Transferred {amount} units from account {sender_account.rib} to RIB: {recipient_account.rib}")
 

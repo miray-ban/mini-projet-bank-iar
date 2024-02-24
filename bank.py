@@ -5,6 +5,7 @@ class Bank:
         self.name = name
         self.tauxin = tauxin
         self.clients = []
+        self.account_counter = 0
 
     def add_client(self, client):
 
@@ -30,13 +31,13 @@ class Bank:
         for client in self.clients:
             if client.cin == cin:
                 rib = random.randint(1000000, 5000000)
-                account = Account(rib)  # Corrected the class name to Account
+                account = Account(rib)
                 client.add_account(account)
-                num =len(client.accounts) + 1
+                self.account_counter += 1
                 with open("userdata.txt", "a") as files:
-                    files.write(f"{num},{client.username},{client.cin},{client.password},{rib},{account.solde}\n")
-                    print(f"Created account number: {num} for {client.username} (CIN: {client.cin}) with RIB: {rib}")
-                return  # Exit the loop if client is found
+                    files.write(f"{self.account_counter},{client.username},{client.cin},{client.password},{rib},{account.solde}\n")
+                    print(f"Created account number: {self.account_counter} for {client.username} (CIN: {client.cin}) with RIB: {rib}")
+                return
         print("Client not found.")
 
 
