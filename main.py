@@ -81,8 +81,8 @@ def afficher_info_client(user):
 
 
 def afficher_info_banque():
-    print("info")
-    pass
+    print(" infoermation bank \n")
+    bank.aff_bank()
 
 
 

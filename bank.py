@@ -20,9 +20,7 @@ class Bank:
     def aff_bank(self):
         print(f"Bank Name: {self.name}")
         print(f"Taux d'intérêt: {self.tauxin}")
-        print("Clients:")
-        for client in self.clients:
-            print(client)
+       
 
     def getTi(self):
         return self.tauxin
