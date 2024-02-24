@@ -1,5 +1,3 @@
-import os
-
 from client import Client
 from Account import Account
 from bank import Bank
