@@ -1,3 +1,8 @@
+from bank import Bank
+from client import Client
+from Account import Account
+
+
 def main():
         while True:
             print ("welcome in BANK IARV: ;)")
