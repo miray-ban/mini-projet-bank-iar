@@ -26,19 +26,17 @@ class Bank:
     def getTi(self):
         return self.tauxin
 
-    def create_account(self,cine ):
+    def create_account(self, cin):
         for client in self.clients:
-            if client.cin == cine:
-                rib=random.randint(1000000,5000000)
-                account = account(rib)
+            if client.cin == cin:
+                rib = random.randint(1000000, 5000000)
+                account = Account(rib)  # Corrected the class name to Account
                 client.add_account(account)
-                num=0
-                num=num+1
-                with open("userdata.txt","a") as files:
-                    files.writelines(f"{num},{client.username},{client.cin},{rib},{account.solde}\n")
-                    print(f"CREATION DU COMPTE NUMERO : {num} POUR : {client.name} CIN : {client.cin} AVEC LE RIB :  {rib}")
-            else:
-                print("none")
-
+                num =len(client.accounts) + 1
+                with open("userdata.txt", "a") as files:
+                    files.write(f"{num},{client.username},{client.cin},{client.password},{rib},{account.solde}\n")
+                    print(f"Created account number: {num} for {client.username} (CIN: {client.cin}) with RIB: {rib}")
+                return  # Exit the loop if client is found
+        print("Client not found.")
 
 
