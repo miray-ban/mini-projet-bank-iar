@@ -5,20 +5,20 @@ from Transaction import Transaction
 
 
 def create():
-    username = input("Enter your username: ")
-    cin = input("Enter your CIN: ")
-    password = input("Enter your password: ")
+    username = input("-- Enter your username: ")
+    cin = input("-- Enter your CIN: ")
+    password = input("-- Enter your password: ")
     client1 = Client(username, cin, password)
     bank.add_client(client1)
     rib = bank.create_account(cin)
     bank.choose_account_type(client1, rib)
-    print("login : enter your name and password")
+    print("--- login -- : enter your name and password")
     login()
 
 
 def login():
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
+    username = input(" \t |-| Enter your username:  ")
+    password = input(" \t |-| Enter your password: ")
 
     with open("userdata.txt","r") as f2:
         for lines in f2:
@@ -30,7 +30,7 @@ def login():
                 return
         print("Invalid username or password.")
 def exit_program():
-    print("Thanks! See you later.")
+    print("Thanks! See you later ;>")
 
 def afficher_solde(user):
     with open("userdata.txt", "r") as f3:
@@ -40,16 +40,16 @@ def afficher_solde(user):
                 print(f"Your balance is: {data[5]}")
                 break
         else:
-            print("User not found or data format incorrect.")
+            print("User not found .")
 
 
 def faire_transfert(user):
-    rib = input("Enter recipient's RIB: ")
-    amount = float(input("Enter amount to transfer: "))
+    rib = input("\t |-| Enter recipient's RIB: ")
+    amount = float(input("\t |-| Enter amount to transfer: "))
     user.transfert(rib, amount)
 
 def afficher_historique(user):
-    print("Transaction History:")
+    print(" -- Transaction History: -- ")
     try:
         with open("transactiondata.txt", "r") as file:
             for line in file:
@@ -86,15 +86,15 @@ def afficher_info_banque():
 
 def bank_menu(user):
     while True:
-        print("\n Bank Application Menu:")
-        print("┌─────────────────────────────┐")
-        print("│ 1. View balance             │")
-        print("│ 2. Transfer                 │")
-        print("│ 3. Show transaction history │")
-        print("│ 4. View client information  │")
-        print("│ 5. View bank information    │")
-        print("│ 6. Log out                  │")
-        print("└─────────────────────────────┘")
+        print("\t\t\t\t\t\n Bank Application Menu:")
+        print("\t\t\t\t\t┌─────────────────────────────┐")
+        print("\t\t\t\t\t│ 1. View balance             │")
+        print("\t\t\t\t\t│ 2. Transfer                 │")
+        print("\t\t\t\t\t│ 3. Show transaction history │")
+        print("\t\t\t\t\t│ 4. View client information  │")
+        print("\t\t\t\t\t│ 5. View bank information    │")
+        print("\t\t\t\t\t│ 6. Log out                  │")
+        print("\t\t\t\t\t└─────────────────────────────┘")
         choice = input("Enter your choice: ")
 
         if choice == '1':
@@ -116,9 +116,9 @@ def bank_menu(user):
 bank = Bank("IAV", 0.15)
 
 while True:
-    print("\t\t\t\t\t************************")
+    print("\t\t\t\t\t*****************")
     print("\t\t\t\t\t| Welcome to BANK IAV! ;)")
-    print("\t\t\t\t\t************************")
+    print("\t\t\t\t\t*****************")
     print("\t\t\t\t\t┌──────────────────────────────────┐")
     print("\t\t\t\t\t\t1. Create an account\n\t\t\t\t\t\t2. Login\n\t\t\t\t\t\t3. Exit")
     print("\t\t\t\t\t└──────────────────────────────────┘")
