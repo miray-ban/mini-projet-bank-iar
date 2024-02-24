@@ -12,7 +12,8 @@ def create():
     password = input("Enter your password: ")
     client1 = Client(username, cin, password)
     bank.add_client(client1)
-    bank.create_account(cin)
+    rib = bank.create_account(cin)
+    bank.choose_account_type(client1, rib)
     print("login : enter your name and password")
     login()
 
@@ -67,8 +68,17 @@ def afficher_historique(user):
 
 
 def afficher_info_client(user):
+    print(f"Client Information:")
+    print(f"Username: {user.username}")
+    print(f"CIN: {user.cin}")
+    print("Accounts:")
+    with open("accountdata.txt","r") as file:
+        for line in file:
+            data=line.strip().split(",")
+            if user.cin==data[1]:
+              print(f"your account :{data[2]}")
 
-    pass
+
 
 def afficher_info_banque():
     print("info")

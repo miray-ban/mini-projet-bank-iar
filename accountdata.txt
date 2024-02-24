@@ -1,0 +1,10 @@
+miray,h456,None
+malak,z258,Investment
+yasmin,z458,Savings
+yasmine,z458,Credit
+zak,z56,Savings
+kio,z555,Savings
+amd,s145,Savings
+mp,5,Savings
+mp,mp,Savings
+huda,t456,Checking
