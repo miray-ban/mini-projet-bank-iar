@@ -11,7 +11,6 @@ def create():
     client1 = Client(username, cin, password)
     bank.add_client(client1)
     rib = bank.create_account(cin)
-    bank.choose_account_type(client1, rib)
     print("--- login -- : enter your name and password")
     login()
 
