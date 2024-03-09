@@ -1,4 +1,5 @@
 from Account import Account
+from client import Client
 import random
 class Bank:
     def __init__(self, name, tauxin):
@@ -10,8 +11,8 @@ class Bank:
     def add_client(self, client):
 
         for exist_client in self.clients:
-            if exist_client.username == client.username or exist_client.cin == client.cin:
-                print("exist :<")
+            if exist_client.cin == client.cin:
+                print("you are already a client")
 
         self.clients.append(client)
         with open("bankdata.txt","a") as file:
@@ -31,16 +32,16 @@ class Bank:
                 rib = random.randint(1000000, 5000000)
                 account = Account(rib)
                 client.add_account(account)
-                self.account_counter += 1
+                client.account_counter += 1
                 with open("userdata.txt", "a") as files:
                     files.write(
-                        f"{self.account_counter},{client.username},{client.cin},{client.password},{rib},{account.solde}\n")
+                        f"{client.account_counter},{client.username},{client.cin},{client.password},{rib},{account.solde}\n")
                     print(
-                        f"Created account number: {self.account_counter} for {client.username} (CIN: {client.cin}) with RIB: {rib}")
+                        f"Created account number: {client.account_counter} for {client.username} (CIN: {client.cin}) with RIB: {rib}")
 
                 account_type = self.choose_account_type(client, rib)
                 with open("accountdata.txt", "a") as file:
-                    file.write(f"{client.username},{client.cin},{account_type}\n")
+                    file.write(f"{client.username},{client.cin},{account_type},{rib}\n")
                 return
             print("Client not found.")
     def choose_account_type(self, client, rib):
@@ -64,4 +65,7 @@ class Bank:
             account_type = "Credit"
         return account_type
 
+    def set_interest_rate(self, new_rate):
+        self.tauxin = new_rate
+        print(f"Changed interest rate to {new_rate}")
 

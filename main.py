@@ -1,7 +1,10 @@
-from client import Client
+import json
+import random
 from Account import Account
-from bank import Bank
 from Transaction import Transaction
+from client import Client
+from bank import Bank
+from admin import Admin
 
 
 def create():
@@ -14,10 +17,13 @@ def create():
     print("--- login -- : enter your name and password")
     login()
 
-
 def login():
     username = input(" \t |-| Enter your username:  ")
     password = input(" \t |-| Enter your password: ")
+
+    if username == "admin" and password == "admin":
+        admin_menu()
+        return
 
     with open("userdata.txt","r") as f2:
         for lines in f2:
@@ -28,6 +34,7 @@ def login():
                 bank_menu(user)
                 return
         print("Invalid username or password.")
+
 def exit_program():
     print("Thanks! See you later ;>")
 
@@ -40,7 +47,6 @@ def afficher_solde(user):
                 break
         else:
             print("User not found .")
-
 
 def faire_transfert(user):
     rib = input("\t |-| Enter recipient's RIB: ")
@@ -61,9 +67,6 @@ def afficher_historique(user):
     except Exception as e:
         print(f"An error occurred while reading transaction data: {e}")
 
-
-
-
 def afficher_info_client(user):
     print(f"Client Information:")
     print(f"Username: {user.username}")
@@ -73,15 +76,11 @@ def afficher_info_client(user):
         for line in file:
             data=line.strip().split(",")
             if user.cin==data[1]:
-              print(f"your account :{data[2]}")
-
-
+                print(f"your account :{data[2]}")
 
 def afficher_info_banque():
     print(" infoermation bank \n")
     bank.aff_bank()
-
-
 
 def bank_menu(user):
     while True:
@@ -112,26 +111,66 @@ def bank_menu(user):
         else:
             print("Invalid choice. Please try again.")
 
-bank = Bank("IAV", 0.15)
+def admin_menu():
+    admin = Admin(bank)
+    while True:
+        print("\t\t\t\t\t\n Admin Menu:")
+        print("\t\t\t\t\t┌─────────────────────────────┐")
+        print("\t\t\t\t\t│ 1. Add balance to client     │")
+        print("\t\t\t\t\t│ 2. Change interest rate      │")
+        print("\t\t\t\t\t│ 3. Back to main menu         │")
+        print("\t\t\t\t\t└─────────────────────────────┘")
+        choice = input("Enter your choice: ")
 
-while True:
-    print("\t\t\t\t\t*****************")
-    print("\t\t\t\t\t| Welcome to BANK IAV! ;)")
-    print("\t\t\t\t\t*****************")
-    print("\t\t\t\t\t┌──────────────────────────────────┐")
-    print("\t\t\t\t\t\t1. Create an account\n\t\t\t\t\t\t2. Login\n\t\t\t\t\t\t3. Exit")
-    print("\t\t\t\t\t└──────────────────────────────────┘")
-    choice = input("Enter your choice: ")
+        if choice == '1':
+            rib = input("Enter client's RIB: ")
+            amount = float(input("Enter amount to add: "))
+            admin.add_balance(rib, amount)
+        elif choice == '2':
+            new_rate = float(input("Enter new interest rate: "))
+            admin.change_interest_rate(new_rate)
+        elif choice == '3':
+            home()
+        else:
+            print("Invalid choice. Please try again.")
 
-    if choice == '1':
-        create()
 
-    elif choice == '2':
-        login()
+def gestion():
+    username = input(" \t |-| Enter ADMIN username:  ")
+    password = input(" \t |-| Enter ADMIN password: ")
 
-    elif choice == '3':
-        exit_program()
-        break
+    with open("admin.txt","r") as f2:
+        for lines in f2:
+            data = lines.strip().split(',')
+            if  data[0] == username and data[1] == password:
+                print("Login successful!")
+                admin_menu()
+                return
+        print("Invalid username or password.")
 
-    else:
-        print("Invalid choice, please try again.")
+bank = Bank("IARV", 0.15)
+
+def home() :
+    while True:
+         print("\t\t\t\t\t*****************")
+         print("\t\t\t\t\t| Welcome to BANK IARV! ;)")
+         print("\t\t\t\t\t*****************")
+         print("\t\t\t\t\t┌──────────────────────────────────┐")
+         print("\t\t\t\t\t\t1. Create an account\n\t\t\t\t\t\t2. Login\n\t\t\t\t\t\t3. Login as admin\n\t\t\t\t\t\t4. Exit")
+         print("\t\t\t\t\t└──────────────────────────────────┘")
+         choice = input("Enter your choice: ")
+
+         if choice == '1':
+             create()
+         elif choice == '2':
+             login()
+         elif choice == '3':
+             gestion()
+             break
+         elif choice == '4':
+             print("GOOD BYE")
+             exit()
+         else:
+             print("Invalid choice, please try again.")
+
+home()
